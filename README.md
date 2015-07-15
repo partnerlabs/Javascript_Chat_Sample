@@ -4,7 +4,7 @@
 JavaScript(WEB) PartnerPush SDK 설정하는 방법에 대해 설명을 시작합니다.
 
 ## PartnerPush JavaScript SDK 설명
-PartnerMQTTFramework를 다운받으세요.
+PartnerPush SDK를 다운받으세요.
 해당 html,project에서 다운받은 JS파일을 불러오세요
 
 ## init 설명
@@ -54,7 +54,7 @@ pushClient = new PartnerPush.Client({
 선택 사항은 overriding해서 사용하는 interface들로. function 자리에 사용자가 지정해서 함수를 넣으면 됩니다.
 
 
-## 구독
+## 토픽
 
 클라이언트명.appTopic("구독할 토픽명");
 ex)  pushClient.addTopic("Test Topic");
