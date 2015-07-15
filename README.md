@@ -7,11 +7,28 @@ JavaScript(WEB) PartnerPush SDK 설정하는 방법에 대해 설명을 시작�
 PartnerMQTTFramework를 다운받으세요.
 해당 html,project에서 다운받은 JS파일을 불러오세요
 
-## init 설명 및 구현방법
+## init 설명
 init이란 PartnerPush에 푸시서비스를 연결하는 함수입니다. (javascript에서는 Client 객체 생성시 자동으로 init()해주고 있습니다)
 사용자의 project가 Client가 되고 저희 Partner가 server가 되어 Push service를 제공합니다.
 
-## MQTT 연결 요청
+## 구현방법
+```
+lib/
+ ├─ partnerLib/
+ │   └─ partnerPush-0.1.min.js
+ └─ vender/
+     └─ mqttws31.js
+```
+1. 위에 있는 js파일들을 추가하세요.
+
+``` html
+<script src="/lib/vender/mqttws31.js"></script>
+<script src="/lib/partnerLib/partnerPush-0.1.min.js"></script>
+```
+
+2. 추가되면 PartnerPush를 시작할 준비가 끝났습니다. 아래 순서에 따라 진행해주시면 됩니다.
+
+## PartnerPush 연결 요청
  
 push service를 사용하기 위해 사용자는 클라이언트 객체를 생성해주어야 합니다. 
 여기에 필요한 정보로는 
@@ -22,13 +39,17 @@ push service를 사용하기 위해 사용자는 클라이언트 객체를 생�
 
 아래는 예시입니다.
 
-    pushClient = new PartnerPush.Client({
+``` html
+<script>
+pushClient = new PartnerPush.Client({
         appId: "appId",  //필수 항목
         apiKey : "apikey", //필수 항목
         onPPReceived : function, // 선택사항  메세지를 받았을때 실행되는 interface
         onPPConnected : function, // 선택사항 연결이 성공했을때 실행되는 interface
         onPPFail : function // 선택사항 연결이 실패했을때 실행되는 interface
 	});
+</script>
+```
 	
 선택 사항은 overriding해서 사용하는 interface들로. function 자리에 사용자가 지정해서 함수를 넣으면 됩니다.
 
@@ -57,7 +78,11 @@ ex)  pushClient.removeTopic("Test Topic");
 - - -
 
 
-``` javascript
+``` html
+<script>
+
+...
+
 var payload = {
     nickname : 'hello',
     text : msg
@@ -66,10 +91,15 @@ var payload = {
 pushClient.sendMessage('Test Topic', JSON.stringify(payload));
 pushClient.sendMessage('Test Topic', JSON.stringify(payload), 0);
 
+...
+
+</script>
+
 ```
 
 ## 연결
 ##### 클라이언트명.connect(); 
+
 ```
 pushClient.connect();
 ```
@@ -79,10 +109,11 @@ pushClient.connect();
 
 ```
 pushClient.disconnect();
-
 ```
+
 ## 오류코드
 
 ### 버전 히스토리
 
 2015.06.25 - pp3 설명.
+2015.07.15 - PP3 구현방법내용 추가.
